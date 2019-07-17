@@ -16,6 +16,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\www\www.csproj" />
+    <ProjectReference Include="..\alternate\alternate.csproj" />
   </ItemGroup>
 
 </Project>

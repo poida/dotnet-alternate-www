@@ -1,17 +1,21 @@
 using System.Net;
 using System.Threading;
 using System.Threading.Tasks;
+using core;
 using Microsoft.AspNetCore;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.DependencyInjection;
+using www.Controllers;
 
 namespace www
 {
     public class ApiServer
     {
-        public ApiServer(int port) {
+        private readonly IStuffHolder stuffHolder;
 
+        public ApiServer(int port, IStuffHolder stuffHolder) {
+            this.stuffHolder = stuffHolder;
         }
 
         public void Run() {
@@ -31,6 +35,7 @@ namespace www
                 .ConfigureServices(serviceCollection => {
                     serviceCollection.AddMvc();
                     serviceCollection.AddRouting();
+                    serviceCollection.AddSingleton<IStuffHolder>(this.stuffHolder);
                 })
                 .Configure(appBuilder => {
                     appBuilder.UseMvcWithDefaultRoute();
